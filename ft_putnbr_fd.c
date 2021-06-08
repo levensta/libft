@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_putnbr_fd.c                                     :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: levensta <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/07 14:19:47 by levensta          #+#    #+#             */
-/*   Updated: 2020/11/07 14:38:23 by levensta         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
 void	ft_putnbr_fd(int n, int fd)
@@ -21,8 +9,11 @@ void	ft_putnbr_fd(int n, int fd)
 	i = n;
 	check_minus = 1;
 	del = 1;
-	if (i < 0 && (check_minus = -1))
+	if (i < 0)
+	{
 		ft_putchar_fd('-', fd);
+		check_minus = -1;
+	}
 	while (i / 10)
 	{
 		del *= 10;

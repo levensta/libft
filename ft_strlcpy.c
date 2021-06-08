@@ -1,18 +1,6 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: levensta <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/31 18:00:44 by levensta          #+#    #+#             */
-/*   Updated: 2020/11/05 23:32:53 by levensta         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-size_t		ft_strlcpy(char *dest, const char *source, size_t n)
+size_t	ft_strlcpy(char *dest, const char *source, size_t n)
 {
 	size_t	i;
 	size_t	j;

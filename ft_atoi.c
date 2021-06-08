@@ -1,42 +1,59 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: levensta <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/02/10 18:25:54 by levensta          #+#    #+#             */
-/*   Updated: 2020/11/23 22:44:01 by levensta         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-int		ft_atoi(const char *str)
+int	is_whitespaces(char c)
 {
-	int i;
-	int nb;
-	int check_symbol;
-	int amount;
+	return (c == ' ' || c == '\t' || c == '\n' \
+	|| c == '\v' || c == '\r' || c == '\f');
+}
+
+int	check_numlen(int amount, int flag)
+{
+	if (amount > 19)
+	{
+		if (flag > 0)
+			return (-1);
+		else
+			return (0);
+	}
+	return (1);
+}
+
+int	check_symbol(char c, int *i, int *flag)
+{
+	if (c == '+')
+		(*i)++;
+	else if (c == '-')
+	{
+		*flag = -1;
+		(*i)++;
+	}
+	return (0);
+}
+
+int	ft_atoi(const char *str)
+{
+	int	i;
+	int	nb;
+	int	flag;
+	int	amount;
 
 	i = 0;
 	nb = 0;
-	check_symbol = 1;
+	flag = 1;
 	amount = 0;
-	while (str[i] == ' ' || str[i] == '\t' || str[i] == '\n'
-	|| str[i] == '\v' || str[i] == '\r' || str[i] == '\f')
+	while (is_whitespaces(str[i]))
 		i++;
-	if (str[i] == '+')
-		i++;
-	else if (str[i] == '-' && ++i)
-		check_symbol = -1;
-	while (str[i] >= '0' && str[i] <= '9')
+	check_symbol(str[i], &i, &flag);
+	while (ft_isdigit(str[i]))
 	{
 		nb = (nb * 10) + (str[i] - '0');
-		amount += (nb == 0) ? 0 : 1;
-		if (amount > 19)
-			return ((check_symbol > 0) ? -1 : 0);
+		if (nb != 0)
+			amount++;
+		if (check_numlen(amount, flag) != 1)
+			return (check_numlen(amount, flag));
 		i++;
 	}
-	return (nb * check_symbol);
+	if (str[i] && !ft_isdigit(str[i]))
+		return (-1);
+	return (nb * flag);
 }

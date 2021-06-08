@@ -1,39 +1,27 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   ft_split.c                                         :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: levensta <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/11/06 19:10:29 by levensta          #+#    #+#             */
-/*   Updated: 2020/11/06 21:14:05 by levensta         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "libft.h"
 
-size_t		read_word(char const *s, char c)
+size_t	read_word(char const *s, const char *separators)
 {
 	size_t	i;
 
 	i = 0;
-	while (s[i] != c && s[i] != '\0')
+	while (!ft_strchr(separators, s[i]) && s[i] != '\0')
 		i++;
 	return (i);
 }
 
-size_t		count_words(char const *s, char c)
+size_t	count_words(char const *s, const char *separators)
 {
-	size_t amount;
-	size_t i;
+	size_t	amount;
+	size_t	i;
 
 	amount = 0;
 	i = 0;
 	while (s[i] != '\0')
 	{
-		if (s[i] != c)
+		if (!ft_strchr(separators, s[i]))
 		{
-			i += read_word(&s[i], c);
+			i += read_word(&s[i], separators);
 			amount++;
 		}
 		else
@@ -42,7 +30,7 @@ size_t		count_words(char const *s, char c)
 	return (amount);
 }
 
-void		*free_words(char **words)
+void	*free_words(char **words)
 {
 	int		i;
 
@@ -54,7 +42,7 @@ void		*free_words(char **words)
 	return (NULL);
 }
 
-char		**ft_split(char const *s, char c)
+char	**ft_split(char const *s, const char *separators)
 {
 	size_t	amount;
 	size_t	len;
@@ -62,17 +50,19 @@ char		**ft_split(char const *s, char c)
 
 	if (!s)
 		return (NULL);
-	if (!(words = (char **)malloc((count_words(s, c) + 1) * sizeof(char *))))
+	words = (char **)malloc((count_words(s, separators) + 1) * sizeof(char *));
+	if (!words)
 		return (NULL);
 	len = 0;
 	amount = 0;
 	while (s[len] != '\0')
 	{
-		if (s[len] != c)
+		if (!ft_strchr(separators, s[len]))
 		{
-			if (!(words[amount++] = ft_substr(s, len, read_word(&s[len], c))))
+			words[amount] = ft_substr(s, len, read_word(&s[len], separators));
+			if (!words[amount++])
 				return (free_words(words));
-			len += read_word(&s[len], c);
+			len += read_word(&s[len], separators);
 		}
 		else
 			len++;
