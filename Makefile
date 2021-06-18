@@ -51,7 +51,10 @@ BONUS = 	ft_lstnew.c \
 			ft_lstdelone.c \
 			ft_lstclear.c \
 			ft_lstiter.c \
-			ft_lstmap.c
+			ft_lstmap.c \
+			insert_into.c \
+			replace_by.c \
+			remove_from.c
 
 OBJECT = $(SOURCE:.c=.o)
 
