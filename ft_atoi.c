@@ -6,7 +6,7 @@ int	is_whitespaces(char c)
 	|| c == '\v' || c == '\r' || c == '\f');
 }
 
-int	check_numlen(int amount, int flag)
+static int	check_numlen(int amount, int flag)
 {
 	if (amount > 19)
 	{
@@ -18,7 +18,7 @@ int	check_numlen(int amount, int flag)
 	return (1);
 }
 
-int	check_symbol(char c, int *i, int *flag)
+static int	check_symbol(char c, int *i, int *flag)
 {
 	if (c == '+')
 		(*i)++;
@@ -54,6 +54,6 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	if (str[i] && !ft_isdigit(str[i]))
-		return (-1);
+		return (0);
 	return (nb * flag);
 }
